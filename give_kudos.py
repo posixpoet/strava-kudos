@@ -40,7 +40,7 @@ class KudosGiver:
         self.page.get_by_role("textbox", name='email').fill(self.EMAIL)
         self.page.get_by_role("button", name="Log In").click()
         time.sleep(3)
-        self.page.get_by_role("textbox", name="password").fill(self.PASSWORD)
+        self.page.get_by_label("password").fill(self.PASSWORD)
         self.page.get_by_role("button", name="Log In").click()
         print("---Logged in!!---")
         self._run_with_retries(func=self._get_page_and_own_profile)
