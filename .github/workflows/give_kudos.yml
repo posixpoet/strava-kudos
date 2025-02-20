@@ -1,4 +1,4 @@
-name: Give Strava Kudos
+name: Give Strava Kudos NG
 
 on:
   schedule:
@@ -20,5 +20,5 @@ jobs:
           cache: 'pip'
       - run: pip install -r requirements.txt
       - run: playwright install
-      - run: python give_kudos.py
+      - run: python give_kudosNG.py
         
