@@ -37,7 +37,7 @@ class KudosGiver:
             self.page.get_by_role("button", name="Reject").click(timeout=5000)
         except Exception as _:
             pass
-        self.page.get_by_placeholder("Your Email").fill(self.EMAIL)
+        self.page.get_by_placeholder("Enter Email").fill(self.EMAIL)
         self.page.get_by_role("button", name="Log In").click()
         time.sleep(3)
         self.page.get_by_label("password").fill(self.PASSWORD)
