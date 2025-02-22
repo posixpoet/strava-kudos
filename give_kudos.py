@@ -22,18 +22,18 @@ class KudosGiver:
         self.start_time = time.time()
         self.num_entries = 100
         self.web_feed_entry_pattern = '[data-testid=web-feed-entry]'
-
+        ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0',
+        
         p = sync_playwright().start()
         self.browser = p.firefox.launch() # does not work in chrome
-        self.browser = await p.firefox.newContext({
-            userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0',
-        });
         self.page = self.browser.new_page()
+        
+        context = browser.new_context(user_agent=ua)
+        self.page = self.context.new_page()
+        assert self.page.evaluate("navigator.userAgent") == ua
         
 
     def email_login(self):
-        pageContent = await self.page.content();
-        console.log(pageContent);
         """
         Login using email and password
         """
