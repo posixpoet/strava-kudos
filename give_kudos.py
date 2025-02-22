@@ -1,9 +1,8 @@
 import os
 import time
-
 from playwright.sync_api import sync_playwright
 
-BASE_URL = "https://www.strava.com/login"
+BASE_URL = "https://www.strava.com/"
 
 class KudosGiver:
     """
@@ -38,17 +37,47 @@ class KudosGiver:
         Login using email and password
         """
         self.page.goto(os.path.join(BASE_URL, 'login'))
+        print("Navigated to login page")
         """
         try:
             self.page.get_by_role("button", name="Reject").click(timeout=2000)
         except Exception as _:
             pass
         """
-        self.page.get_by_placeholder("Your Email").fill(self.EMAIL)
-        self.page.get_by_role("button", name="Log In").click()
+        try:
+            self.page.get_by_placeholder("Your Email").fill(self.EMAIL, timeout=60000)
+            print("Filled email")
+        except Exception as e:
+            print(f"Failed to fill email: {e}")
+            self.page.screenshot(path="email_fill_error.png")
+            raise
+
+        try:
+            self.page.get_by_role("button", name="Log In").click()
+            print("Clicked login button")
+        except Exception as e:
+            print(f"Failed to click login button: {e}")
+            self.page.screenshot(path="login_button_error.png")
+            raise
+
         time.sleep(3)
-        self.page.get_by_label("password").fill(self.PASSWORD)
-        self.page.get_by_role("button", name="Log In").click()
+
+        try:
+            self.page.get_by_placeholder("Your Password").fill(self.PASSWORD, timeout=60000)
+            print("Filled password")
+        except Exception as e:
+            print(f"Failed to fill password: {e}")
+            self.page.screenshot(path="password_fill_error.png")
+            raise
+
+        try:
+            self.page.get_by_role("button", name="Log In").click()
+            print("Clicked login button after filling password")
+        except Exception as e:
+            print(f"Failed to click login button after filling password: {e}")
+            self.page.screenshot(path="login_button_after_password_error.png")
+            raise
+
         print("---Logged in!!---")
         self._run_with_retries(func=self._get_page_and_own_profile)
         
