@@ -33,10 +33,12 @@ class KudosGiver:
         Login using email and password
         """
         self.page.goto(os.path.join(BASE_URL, 'login'))
+        """
         try:
-            self.page.get_by_role("button", name="Reject").click(timeout=5000)
+            self.page.get_by_role("button", name="Reject").click(timeout=2000)
         except Exception as _:
             pass
+        """
         self.page.get_by_placeholder("Your Email").fill(self.EMAIL)
         self.page.get_by_role("button", name="Log In").click()
         time.sleep(3)
