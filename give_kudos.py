@@ -46,7 +46,8 @@ class KudosGiver:
         """
         try:
             #self.page.get_by_placeholder("Your Email").fill(self.EMAIL, timeout=60000)
-            self.page.get_by_role("textbox", name="Email").fill(self.EMAIL, timeout=60000)
+            #self.page.get_by_role("textbox", name="Email").fill(self.EMAIL, timeout=60000)
+            self.page.locator("form", has_text="Details").fill(self.EMAIL, timeout=60000)
             print("Filled email")
         except Exception as e:
             print(f"Failed to fill email: {e}")
