@@ -26,9 +26,9 @@ class KudosGiver:
         
         p = sync_playwright().start()
         self.browser = p.firefox.launch() # does not work in chrome
+        self.context = self.browser.new_context(user_agent=ua)
         self.page = self.browser.new_page()
         
-        context = browser.new_context(user_agent=ua)
         self.page = self.context.new_page()
         assert self.page.evaluate("navigator.userAgent") == ua
         
