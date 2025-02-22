@@ -25,10 +25,15 @@ class KudosGiver:
 
         p = sync_playwright().start()
         self.browser = p.firefox.launch() # does not work in chrome
+        self.browser = await p.firefox.newContext({
+            userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0',
+        });
         self.page = self.browser.new_page()
-
+        
 
     def email_login(self):
+        pageContent = await self.page.content();
+        console.log(pageContent);
         """
         Login using email and password
         """
